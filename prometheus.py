@@ -9,7 +9,7 @@ class prometheus_collect_metrics():
     response = requests.get(PROMETHEUS + '/api/v1/query',
       params={ 
         # 'query': f"{memTotal}"
-        'query' : f"{memory_free}"
+        'query' : f"{memory_free()}"
       })
     results = response.json()['data']['result']
     for result in results:
@@ -20,7 +20,7 @@ class prometheus_collect_metrics():
     response = requests.get(PROMETHEUS + '/api/v1/query',
       params={ 
         # 'query': f"{memFree}"
-        'query': f"{memory_total}"
+        'query': f"{memory_total()}"
       })
     results = response.json()['data']['result']
     for result in results:
@@ -31,18 +31,18 @@ class prometheus_collect_metrics():
     response = requests.get(PROMETHEUS + '/api/v1/query',
       params={ 
         # 'query': f"{node_memory_Usage_bytes}"
-        'query': f"{memory_usage}"
+        'query': f"{memory_usage()}"
       })
     results = response.json()['data']['result']
     for result in results:
       memory_usage = '{value[1]}'.format(**result)
     return print("Memory Usage: " + str(round(int(memory_usage)/pow(10,9),2)) + "GB")
 
-  def metrics_cpu_usage():
+  def Cpu_Usage(): 
     response = requests.get(PROMETHEUS + '/api/v1/query',
       params={
       #  'query': f"{node_cpu_Usage_bytes}"
-        'query': f"{cpu_usage}"
+        'query': f"{cpu_usage()}"
       })
     results = response.json()['data']['result']
     for result in results:
